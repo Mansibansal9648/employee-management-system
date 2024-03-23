@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../app.css";
+import { createEmployeeData } from "../api";
 function Home() {
   const [formData, setFormData] = useState(initialState());
   function initialState() {
     return {
-      id: "",
+      // id: "",
       name: "",
       contact_no: "",
       email: "",
@@ -21,9 +22,22 @@ function Home() {
   const onChangeHandler = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
-  const submit = () => {
+  const submit = async() => {
     console.log("data", formData);
+    await createData();
   };
+
+  const createData=async()=>{
+const res= await createEmployeeData(formData);
+console.log("response : ",res)
+if(res.status===201){
+  alert("User created successfully")
+}
+else{
+  alert(res.message)
+}
+setFormData(initialState())
+  }
   return (
     <>
       <div>
