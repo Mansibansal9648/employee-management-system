@@ -13,6 +13,20 @@
       "experience": "3 years 7 months",
       "previous_company": "NA",
       "joining_date": "2023-09-01"
+    },
+    {
+      "id": "27eb",
+      "name": "Mona",
+      "contact_no": "7982451212",
+      "email": "mansi123@gmail.com",
+      "qualification": "B.Tech (CSE)",
+      "project": "Ultimatix",
+      "designation": "Software Developer",
+      "department": "Engg",
+      "salary": "15 lpa",
+      "experience": "4 yrs",
+      "previous_company": "TCS",
+      "joining_date": "2024-03-10"
     }
   ]
 }

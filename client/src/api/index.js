@@ -22,3 +22,13 @@ export const createEmployeeData = async (data) => {
     return error;
   }
 };
+
+
+export const getEmployeeData= async()=>{
+  try{
+const res= await axios.get(baseURL)
+  return res;
+  }catch(error){
+    return error;
+  }
+}

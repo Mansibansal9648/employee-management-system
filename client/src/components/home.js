@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../app.css";
-import { createEmployeeData } from "../api";
+import { createEmployeeData, getEmployeeData } from "../api";
 function Home() {
   const [formData, setFormData] = useState(initialState());
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
   function initialState() {
     return {
       // id: "",
@@ -35,7 +39,14 @@ function Home() {
     } else {
       alert(res.message);
     }
+    getData();
     setFormData(initialState());
+  };
+
+  const getData = async () => {
+    const res = await getEmployeeData();
+    console.log(res);
+    setTableData(res.data);
   };
   return (
     <div className="display-ui">
@@ -260,29 +271,57 @@ function Home() {
         </form>
       </div>
       <div className="table-ui">
-      <table className="table">
-  <thead className="table-dark">
-    <tr>
-      <th>S. No.</th>
-      <th>Name</th>
-      <th>Contact No.</th>
-      <th>Email Id</th>
-      <th>Qualification</th>
-      <th>Project</th>
-      <th>Designation</th>
-      <th>Department</th>
-      <th>Salary</th>
-      <th>Experience</th>
-      <th>Previous Company</th>
-      <th>Joining Date</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-
-  </tbody>
-</table>
+        <h2>Employee Management Details </h2>
+        <table className="table table-display">
+          <thead className="table-dark">
+            <tr>
+              <th className="table-display">S. No.</th>
+              <th className="table-display">Name</th>
+              <th className="table-display">Contact No.</th>
+              <th className="table-display">Email Id</th>
+              <th className="table-display">Qualification</th>
+              <th className="table-display">Project</th>
+              <th className="table-display">Designation</th>
+              <th className="table-display">Department</th>
+              <th className="table-display">Salary</th>
+              <th className="table-display">Experience</th>
+              <th className="table-display">Previous Company</th>
+              <th className="table-display">Joining Date</th>
+              <th className="table-display">Edit</th>
+              <th className="table-display">Delete</th>
+            </tr>
+          </thead>
+          <tbody >
+            {tableData.map((item, index) => {
+              return (
+                <tr>
+                  <td className="table-display">{index + 1}</td>
+                  <td className="table-display">{item.name}</td>
+                  <td className="table-display">{item.contact_no}</td>
+                  <td className="table-display">{item.email}</td>
+                  <td className="table-display">{item.qualification}</td>
+                  <td className="table-display">{item.project}</td>
+                  <td className="table-display">{item.designation}</td>
+                  <td className="table-display">{item.department}</td>
+                  <td className="table-display">{item.salary}</td>
+                  <td className="table-display">{item.experience}</td>
+                  <td className="table-display">{item.previous_company}</td>
+                  <td className="table-display">{item.joining_date}</td>
+                  <td className="table-display">
+                    <button type="button" class="btn btn-success">
+                      Edit
+                    </button>
+                  </td>
+                  <td className="table-display">
+                    <button type="button" class="btn btn-danger">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

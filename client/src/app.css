@@ -35,3 +35,8 @@
 .table-ui{
   width: 50%
 }
+
+.table-display{
+  border: 2px solid;
+  color: black;
+}
