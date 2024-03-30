@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import "../app.css";
-import { createEmployeeData, getEmployeeData } from "../api";
+import {
+  createEmployeeData,
+  deleteEmployeeData,
+  getEmployeeData,
+} from "../api";
 function Home() {
   const [formData, setFormData] = useState(initialState());
   const [tableData, setTableData] = useState([]);
@@ -48,6 +52,18 @@ function Home() {
     console.log(res);
     setTableData(res.data);
   };
+
+  const deleteData = async (user_id) => {
+    const res = await deleteEmployeeData(user_id);
+    console.log(res);
+    if (res.status === 200) {
+      alert("User deleted successfully");
+      getData();
+    } else {
+      alert(res.message);
+    }
+  };
+
   return (
     <div className="display-ui">
       <div className="form">
@@ -291,7 +307,7 @@ function Home() {
               <th className="table-display">Delete</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody>
             {tableData.map((item, index) => {
               return (
                 <tr>
@@ -313,7 +329,13 @@ function Home() {
                     </button>
                   </td>
                   <td className="table-display">
-                    <button type="button" class="btn btn-danger">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onClick={() => {
+                        deleteData(item.id);
+                      }}
+                    >
                       Delete
                     </button>
                   </td>
