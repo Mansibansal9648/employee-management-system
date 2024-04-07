@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import "../app.css";
 import {
   createEmployeeData,
@@ -7,7 +8,7 @@ import {
   updateEmployeeData,
 } from "../api";
 function Home() {
-  const [formData, setFormData] = useState(initialState());
+  // const [formData, setFormData] = useState(initialState());
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
     getData();
@@ -28,23 +29,46 @@ function Home() {
       joining_date: "",
     };
   }
-  const onChangeHandler = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-  const submit = async () => {
-    console.log("data", formData);
-    if(formData.id){
-      await updateData();
-    }
-    else{
-    await createData();
-    }
-    getData();
-    setFormData(initialState());
-  };
+
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setValues,
+  } = useFormik({
+    initialValues: initialState(),
+    onSubmit: async (values, action) => {
+      console.log("Values", values);
+      if (values.id) {
+        await updateData();
+      } else {
+        await createData();
+      }
+      // setFormData(initialState());
+      await getData();
+      action.resetForm();
+    },
+    // enableReinitialize: true,
+  });
+  // const onChangeHandler = (event) => {
+  //   setFormData({ ...formData, [event.target.name]: event.target.value });
+  // };
+  // const submit = async () => {
+  //   console.log("data", formData);
+  //   if (formData.id) {
+  //     await updateData();
+  //   } else {
+  //     await createData();
+  //   }
+  //  await getData();
+  //   setFormData(initialState());
+  // };
 
   const createData = async () => {
-    const res = await createEmployeeData(formData);
+    const res = await createEmployeeData(values);
     console.log("response : ", res);
     if (res.status === 201) {
       alert("User created successfully");
@@ -70,15 +94,15 @@ function Home() {
     }
   };
 
-  const updateData=async()=>{
-    const res=await updateEmployeeData(formData);
+  const updateData = async () => {
+    const res = await updateEmployeeData(values);
     console.log(res);
     if (res.status === 200) {
       alert("User updated successfully");
     } else {
       alert(res.message);
     }
-  }
+  };
 
   return (
     <div className="display-ui">
@@ -99,8 +123,9 @@ function Home() {
                 id="name"
                 name="name"
                 placeholder="Enter your name"
-                value={formData.name}
-                onChange={onChangeHandler}
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -118,8 +143,9 @@ function Home() {
                 id="contact_no"
                 name="contact_no"
                 placeholder="Enter your contact number"
-                value={formData.contact_no}
-                onChange={onChangeHandler}
+                value={values.contact_no}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -137,8 +163,9 @@ function Home() {
                 id="email"
                 name="email"
                 placeholder="Enter your email id"
-                value={formData.email}
-                onChange={onChangeHandler}
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -156,8 +183,9 @@ function Home() {
                 id="qualification"
                 name="qualification"
                 placeholder="Enter your qualification"
-                value={formData.qualification}
-                onChange={onChangeHandler}
+                value={values.qualification}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -175,8 +203,9 @@ function Home() {
                 id="project"
                 name="project"
                 placeholder="Enter your project"
-                value={formData.project}
-                onChange={onChangeHandler}
+                value={values.project}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -194,8 +223,9 @@ function Home() {
                 id="designation"
                 name="designation"
                 placeholder="Enter your designation"
-                value={formData.designation}
-                onChange={onChangeHandler}
+                value={values.designation}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -213,8 +243,9 @@ function Home() {
                 id="department"
                 name="department"
                 placeholder="Enter your department"
-                value={formData.department}
-                onChange={onChangeHandler}
+                value={values.department}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -232,8 +263,9 @@ function Home() {
                 id="salary"
                 name="salary"
                 placeholder="Enter your salary"
-                value={formData.salary}
-                onChange={onChangeHandler}
+                value={values.salary}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -251,8 +283,9 @@ function Home() {
                 id="experience"
                 name="experience"
                 placeholder="Enter your experience"
-                value={formData.experience}
-                onChange={onChangeHandler}
+                value={values.experience}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -270,8 +303,9 @@ function Home() {
                 id="previous_company"
                 name="previous_company"
                 placeholder="Enter your previous company"
-                value={formData.previous_company}
-                onChange={onChangeHandler}
+                value={values.previous_company}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
@@ -288,15 +322,16 @@ function Home() {
                 type="date"
                 id="joining_date"
                 name="joining_date"
-                value={formData.joining_date}
-                onChange={onChangeHandler}
+                value={values.joining_date}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </div>
           </div>
           <button
             className="form-button submit-button"
             type="button"
-            onClick={submit}
+            onClick={handleSubmit}
           >
             Submit
           </button>
@@ -340,7 +375,13 @@ function Home() {
                   <td className="table-display">{item.previous_company}</td>
                   <td className="table-display">{item.joining_date}</td>
                   <td className="table-display">
-                    <button type="button" class="btn btn-success" onClick={()=>{setFormData(item)}}>
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      onClick={() => {
+                        setValues(item);
+                      }}
+                    >
                       Edit
                     </button>
                   </td>
