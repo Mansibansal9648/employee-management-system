@@ -1,18 +1,18 @@
 {
   "data": [
     {
-      "id": "062c",
       "name": "Mansi Bansal",
       "contact_no": "9990839648",
       "email": "mansibansal12345@gmail.com",
-      "qualification": "B.Tech",
+      "qualification": "B.Tech ( CSE )",
       "project": "Paypal",
       "designation": "Software Engineer",
       "department": "Development",
       "salary": "9 lpa",
       "experience": "3 years 7 months",
       "previous_company": "NA",
-      "joining_date": "2023-09-01"
+      "joining_date": "2023-09-01",
+      "id": "062c"
     },
     {
       "id": "27eb",

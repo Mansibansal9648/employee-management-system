@@ -4,6 +4,7 @@ import {
   createEmployeeData,
   deleteEmployeeData,
   getEmployeeData,
+  updateEmployeeData,
 } from "../api";
 function Home() {
   const [formData, setFormData] = useState(initialState());
@@ -32,7 +33,14 @@ function Home() {
   };
   const submit = async () => {
     console.log("data", formData);
+    if(formData.id){
+      await updateData();
+    }
+    else{
     await createData();
+    }
+    getData();
+    setFormData(initialState());
   };
 
   const createData = async () => {
@@ -43,8 +51,6 @@ function Home() {
     } else {
       alert(res.message);
     }
-    getData();
-    setFormData(initialState());
   };
 
   const getData = async () => {
@@ -63,6 +69,16 @@ function Home() {
       alert(res.message);
     }
   };
+
+  const updateData=async()=>{
+    const res=await updateEmployeeData(formData);
+    console.log(res);
+    if (res.status === 200) {
+      alert("User updated successfully");
+    } else {
+      alert(res.message);
+    }
+  }
 
   return (
     <div className="display-ui">
@@ -287,7 +303,7 @@ function Home() {
         </form>
       </div>
       <div className="table-ui">
-        <h2>Employee Management Details </h2>
+        <h2 className="h2-display">Employee Management Details </h2>
         <table className="table table-display">
           <thead className="table-dark">
             <tr>
@@ -324,7 +340,7 @@ function Home() {
                   <td className="table-display">{item.previous_company}</td>
                   <td className="table-display">{item.joining_date}</td>
                   <td className="table-display">
-                    <button type="button" class="btn btn-success">
+                    <button type="button" class="btn btn-success" onClick={()=>{setFormData(item)}}>
                       Edit
                     </button>
                   </td>

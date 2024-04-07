@@ -41,3 +41,24 @@ return res;
     return error;
   }
 }
+
+export const updateEmployeeData=async(data)=>{
+  try{
+const res=await axios.put(`${baseURL}/${data.id}`,{
+  name: data.name,
+  contact_no: data.contact_no,
+  email: data.email,
+  qualification: data.qualification,
+  project: data.project,
+  designation: data.designation,
+  department: data.department,
+  salary: data.salary,
+  experience: data.experience,
+  previous_company: data.previous_company,
+  joining_date: data.joining_date,
+})
+return res;
+  }catch(error){
+    return error;
+  }
+}
