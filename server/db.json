@@ -55,6 +55,20 @@
       "previous_company": "Softsages",
       "joining_date": "2023-05-16",
       "id": "39c4"
+    },
+    {
+      "name": "Rahul",
+      "contact_no": "9807659875",
+      "email": "rahul98@gmail.com",
+      "qualification": "MCA",
+      "project": "CRM",
+      "designation": "HR",
+      "department": "HR",
+      "salary": "5000",
+      "experience": "4",
+      "previous_company": "NA",
+      "joining_date": "2024-04-03",
+      "id": "8670"
     }
   ]
 }

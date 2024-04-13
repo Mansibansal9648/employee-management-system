@@ -7,6 +7,7 @@ import {
   getEmployeeData,
   updateEmployeeData,
 } from "../api";
+import { employeeSchema } from "../schema/employeeSchema";
 function Home() {
   // const [formData, setFormData] = useState(initialState());
   const [tableData, setTableData] = useState([]);
@@ -40,6 +41,7 @@ function Home() {
     setValues,
   } = useFormik({
     initialValues: initialState(),
+    validationSchema: employeeSchema,
     onSubmit: async (values, action) => {
       console.log("Values", values);
       if (values.id) {
@@ -129,6 +131,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.name && touched.name ? (
+            <p className="form-error">{errors.name}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -149,6 +154,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.contact_no && touched.contact_no ? (
+            <p className="form-error">{errors.contact_no}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -169,6 +177,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.email && touched.email ? (
+            <p className="form-error">{errors.email}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -189,6 +200,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.qualification && touched.qualification ? (
+            <p className="form-error">{errors.qualification}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -209,6 +223,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.project && touched.project ? (
+            <p className="form-error">{errors.project}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -229,6 +246,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.designation && touched.designation ? (
+            <p className="form-error">{errors.designation}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -249,6 +269,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.department && touched.department ? (
+            <p className="form-error">{errors.department}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -269,6 +292,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.salary && touched.salary ? (
+            <p className="form-error">{errors.salary}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -282,13 +308,16 @@ function Home() {
                 type="text"
                 id="experience"
                 name="experience"
-                placeholder="Enter your experience"
+                placeholder="Enter your experience (in months)"
                 value={values.experience}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
             </div>
           </div>
+          {errors.experience && touched.experience ? (
+            <p className="form-error">{errors.experience}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -309,6 +338,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.previous_company && touched.previous_company ? (
+            <p className="form-error">{errors.previous_company}</p>
+          ) : null}
           <div className="row input-form">
             <label
               className="col-sm-2 col-form-label col-form-label"
@@ -328,6 +360,9 @@ function Home() {
               />
             </div>
           </div>
+          {errors.joining_date && touched.joining_date ? (
+            <p className="form-error">{errors.joining_date}</p>
+          ) : null}
           <button
             className="form-button submit-button"
             type="button"

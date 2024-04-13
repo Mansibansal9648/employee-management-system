@@ -44,3 +44,7 @@
 .h2-display{
   color:deeppink
 }
+.form-error{
+  color:red;
+  padding-left: 120px;
+}
